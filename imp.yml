@@ -1,0 +1,25 @@
+name: Hide Contributors Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  hide-contributors:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+      
+    - name: Create Custom Documentation for Contributors
+      run: |
+        echo "# Contributors" > CONTRIBUTORS.md
+        echo "This list is maintained manually, and contributions will not be automatically listed." >> CONTRIBUTORS.md
+        git add CONTRIBUTORS.md
+        git commit -m "Add custom contributors documentation"
+        git push
